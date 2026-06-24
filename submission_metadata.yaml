@@ -7,6 +7,9 @@ primary_contact:
   phone: "+91-9845983561"
 
 team_members:
+  - name: "Gaurav Omprakash"
+    email: "gauravb2188@gmail.com"
+    role: "Team member"
   - name: "Pranav R"
     email: "pranavr1030@gmail.com"
     role: "Team member"
