@@ -14,8 +14,8 @@ team_members:
     email: "girinandadk@gmail.com"
     role: "Team member"
 
-github_repo: "https://github.com/gaurav-2188/YOUR_REPO_NAME" # Put your exact GitHub link here
-sandbox_link: "https://colab.research.google.com/drive/YOUR_NOTEBOOK_LINK" # Put your Colab link here
+github_repo: https://github.com/gaurav-2188/ranker.git 
+sandbox_link: https://colab.research.google.com/drive/1A5FuJ6Nvk3G_CJWCjz2dTZGTZQwsg00a?usp=sharing 
 
 ai_tools_used:
   - "Used LLM to build a rule-based ranking script and design the repository structure."
