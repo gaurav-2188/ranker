@@ -5,25 +5,22 @@ from datetime import datetime
 
 # Look for your exact uncompressed .jsonl file name
 DATASET_PATH = "candidates.jsonl" 
-OUTPUT_CSV = "trail.csv"
+OUTPUT_CSV = "output.csv"
 
 def is_valid_engineering_title(title):
-    """
-    Trap Prevention: Filters out non-engineers who keyword-stuff their skills.
-    Returns a multiplier.
-    """
+    
     title_lower = title.lower()
-    # Immediate disqualifiers (The "Marketing Manager" / non-technical trap from the JD)
+    
     bad_keywords = ['marketing', 'hr', 'sales', 'recruiter', 'manager', 'designer', 'support', 'writer', 'executive']
     if any(b in title_lower for b in bad_keywords):
         return 0.0 
     
-    # Positive engineering signals
+   
     good_keywords = ['ai', 'machine learning', 'ml', 'data', 'software', 'backend', 'engineer', 'scientist']
     if any(g in title_lower for g in good_keywords):
         return 1.0
         
-    return 0.5 # Neutral / unknown engineering title
+    return 0.5 # unknown engineering title
 
 def compute_candidate_score(candidate):
     profile = candidate.get('profile', {})
@@ -33,12 +30,12 @@ def compute_candidate_score(candidate):
     title = profile.get('current_title', 'Unknown')
     yoe = profile.get('years_of_experience', 0)
 
-    # 1. Role / Title Match (Avoiding keyword stuffer traps)
+    #role
     role_multiplier = is_valid_engineering_title(title)
     if role_multiplier == 0.0:
         return 0.0, f"Filtered: Title '{title}' indicates non-engineering role despite skills."
 
-    # 2. Experience Match (Target: 5-9 years per JD)
+    #experience
     exp_score = 0.0
     if 5 <= yoe <= 9:
         exp_score = 1.0
@@ -47,12 +44,12 @@ def compute_candidate_score(candidate):
     else:
         exp_score = 0.4
 
-    # 3. Core AI Skills Match (Looking for ML Systems, RAG, Embeddings, LLMs)
+    # core AI skills
     target_skills = ['python', 'pytorch', 'tensorflow', 'llm', 'rag', 'machine learning', 'nlp', 'pinecone', 'aws', 'spark', 'embeddings']
     matched_skills = [s.get('name') for s in skills if s.get('name', '').lower() in target_skills]
     skill_score = min(len(matched_skills) / 6.0, 1.0) # Max out at 6 relevant core skills
 
-    # 4. Behavioral Signals (The "Ghost" candidate trap)
+    # ghost candidates (inactive users)
     response_rate = signals.get('recruiter_response_rate', 0.0)
     recent_activity_multiplier = 1.0
     
@@ -78,17 +75,14 @@ def compute_candidate_score(candidate):
     return final_score, reasoning
 
 def load_candidates(filepath):
-    """
-    Reads the uncompressed JSON Lines file safely line-by-line 
-    to manage memory efficiency across large files.
-    """
+   
     print(f"Loading candidates from {filepath}...")
     candidates = []
     
     with open(filepath, 'r', encoding='utf-8') as f:
         for line_num, line in enumerate(f, start=1):
             cleaned_line = line.strip()
-            if cleaned_line:  # Skip empty lines if present
+            if cleaned_line:  
                 try:
                     candidates.append(json.loads(cleaned_line))
                 except json.JSONDecodeError as e:
@@ -114,10 +108,10 @@ def main():
             'reasoning': reasoning
         })
 
-    # Sort requirements: Monotonically non-increasing score. Tie-breaker: candidate_id ascending.
+
     scored_candidates.sort(key=lambda x: (-x['score'], x['candidate_id']))
 
-    # Take exactly the top 100 as specified by rules
+   
     top_100 = scored_candidates[:100]
 
     print(f"Writing top 100 candidates to {OUTPUT_CSV}...")
@@ -128,7 +122,7 @@ def main():
             formatted_score = f"{cand['score']:.4f}"
             writer.writerow([cand['candidate_id'], rank, formatted_score, cand['reasoning']])
 
-    print("Success! Submission file 'team_submission.csv' generated.")
+    print("Success! Submission file 'output.csv' generated.")
 
 if __name__ == "__main__":
     main()
