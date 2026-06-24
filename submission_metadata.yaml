@@ -24,7 +24,7 @@ ai_tools_used:
   - "Used LLM to build a rule-based ranking script and design the repository structure."
 
 methodology_summary: |
-  A fast, rule-based heuristic ranker built using Python's standard library to efficiently process 100,000 lines. It prioritizes the requested 5-9 years of experience band and evaluates candidate profiles against target AI engineering skills. It guards against keyword-stuffer traps by zeroing out non-engineering titles (Marketing, Sales, HR) and applies a multiplicative behavioral modifier based on recruiter response rates and platform recency to down-weight unavailable candidates. Runtime is <5 seconds on CPU.
+  A fast, rule-based heuristic ranker built using Python's standard library to efficiently process 100,000 lines. It prioritizes the requested 5-9 years of experience band and evaluates candidate profiles against target AI engineering skills. It guards against keyword-stuffer traps by zeroing out non-engineering titles (Marketing, Sales, HR) and applies a multiplicative behavioral modifier based on recruiter response rates and platform recency to down-weight unavailable candidates. Runtime is <3.5 seconds on CPU.
 
 declarations:
   read_submission_spec: true
