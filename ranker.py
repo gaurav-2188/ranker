@@ -109,7 +109,7 @@ def main():
         })
 
 
-    scored_candidates.sort(key=lambda x: (-x['score'], x['candidate_id']))
+    scored_candidates.sort(key=lambda x: (-round(x['score'], 4), x['candidate_id']))
 
    
     top_100 = scored_candidates[:100]
