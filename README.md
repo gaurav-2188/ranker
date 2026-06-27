@@ -1,4 +1,4 @@
-# ranker
+# Build a deterministic heuristic ranking engine to filter 100,000 unorganized profiles down to the exact top 100 candidates for a Founding AI Engineer role while enforcing strict tie breaking and sorting constraints.
 
 # Redrob Intelligent Candidate Discovery & Ranking System
 
