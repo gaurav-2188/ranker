@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Look for your exact uncompressed .jsonl file name
 DATASET_PATH = "candidates.jsonl" 
-OUTPUT_CSV = "team_999.csv"
+OUTPUT_CSV = "Team_ViSION.csv"
 
 def is_valid_engineering_title(title):
     
@@ -122,7 +122,7 @@ def main():
             formatted_score = f"{cand['score']:.4f}"
             writer.writerow([cand['candidate_id'], rank, formatted_score, cand['reasoning']])
 
-    print("Success! Submission file 'team_999.csv' generated.")
+    print("Success! Submission file 'Team_ViSION.csv' generated.")
 
 if __name__ == "__main__":
     main()
