@@ -1,5 +1,3 @@
-# Build a deterministic heuristic ranking engine to filter 100,000 unorganized profiles down to the exact top 100 candidates for a Founding AI Engineer role while enforcing strict tie breaking and sorting constraints.
-
 # Redrob Intelligent Candidate Discovery & Ranking System
 
 This repository contains our team's submission for the Redrob Candidate Discovery Challenge. The system implements a rules based heuristic pipeline designed to parse a pool of 100,000 candidate profiles and extract the top 100 most viable matches for the Founding Senior AI Engineer role.
